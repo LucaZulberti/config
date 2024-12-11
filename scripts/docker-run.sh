@@ -61,21 +61,39 @@ echo "Config directory: $CONFIG_DIR"
 echo "Work directory: $WORK_DIR"
 echo "Positional arguments: ${ARGS[@]}"
 
-# Prepare the `docker run` command
-DOCKER_CMD=(docker run -it --rm)
-DOCKER_CMD+=(-v "$CONFIG_DIR:/config")
-DOCKER_CMD+=(-v "$WORK_DIR:/work")
+# Docker
+# ------
+
+CONFIG_NAME=$(basename "$CONFIG_DIR")
+WORK_NAME=$(basename "$WORK_DIR")
+IMAGE_NAME="workenv"
+CONTAINER_NAME="${IMAGE_NAME}-${CONFIG_NAME}-${WORK_NAME}"
+
+# Prepare the docker command
+DOCKER_ARGS=(-v "$CONFIG_DIR:/config")
+DOCKER_ARGS+=(-v "$WORK_DIR:/work")
 
 # Add volume mounts dynamically
 for mount in "${VOLUME_MOUNTS[@]}"; do
-    DOCKER_CMD+=(-v "$mount")
+    DOCKER_ARGS+=(-v "$mount")
 done
 
 # Add the image name
-DOCKER_CMD+=(workenv)
+DOCKER_ARGS+=($IMAGE_NAME)
 
-# Add arguments
-DOCKER_CMD+=("${ARGS[@]}")
+# Add additional arguments
+DOCKER_ARGS+=("${ARGS[@]}")
 
-# Execute the command
-"${DOCKER_CMD[@]}"
+# Check if the container is already running
+if docker inspect -f '{{.State.Running}}' "${CONTAINER_NAME}" 2>/dev/null | grep -q "true"; then
+    echo "Container '${CONTAINER_NAME}' is running. Attaching..."
+    docker attach "${CONTAINER_NAME}"
+elif docker inspect "${CONTAINER_NAME}" >/dev/null 2>&1; then
+    echo "Container '${CONTAINER_NAME}'is not running. Starting..."
+    docker start "${CONTAINER_NAME}" > /dev/null
+    echo "Container '${CONTAINER_NAME}' started. Attaching..."
+    docker attach "${CONTAINER_NAME}"
+else
+    echo "Container '${CONTAINER_NAME}' does not exist. Creating and starting..."
+    docker run -it --name "${CONTAINER_NAME}" "${DOCKER_ARGS[@]}"
+fi
