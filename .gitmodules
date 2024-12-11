@@ -1,0 +1,15 @@
+[submodule "nvim"]
+	path = nvim
+	url = git@github.com:LucaZulberti/config.nvim.git
+[submodule "fish"]
+	path = fish
+	url = git@github.com:LucaZulberti/config.fish.git
+[submodule "tmuxp"]
+	path = tmuxp
+	url = git@github.com:LucaZulberti/config.tmuxp.git
+[submodule "tmux-powerline"]
+	path = tmux-powerline
+	url = git@github.com:LucaZulberti/config.tmux-powerline.git
+[submodule "tmux"]
+	path = tmux
+	url = git@github.com:LucaZulberti/config.tmux.git
