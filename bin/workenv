@@ -8,7 +8,7 @@ WORK_DIR="$HOME/"
 
 # Build local workenv docker image
 pushd $CONF_DIR
-scripts/docker-build-work.sh
+scripts/docker-build-work.sh &> .docker-build-work.log
 popd
 
 # Run container and make ~/.local persistent
