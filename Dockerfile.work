@@ -1,4 +1,4 @@
-FROM lucazulberti/workenv:main
+FROM lucazulberti/workenv:latest
 
 # Go back to root user
 USER root
