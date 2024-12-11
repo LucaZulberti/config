@@ -21,26 +21,30 @@ RUN apt-get update && apt-get install -y \
         gcc \
         git \
         git-lfs \
-        luarocks \
+        libreadline-dev \
         make \
         neovim \
         python3 \
         python3-venv \
-        python-is-python3 \
         tmux \
         unzip \
         wget \
-        yarn && \
-    rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # Switch to non-root user
 USER ubuntu
 
-# Install tmuxp in virtual environment
+# Install python virtual environment and needed packages
 RUN mkdir -p ~/.venv/ && \
     python3 -m venv ~/.venv/work && \
     . ~/.venv/work/bin/activate && \
-    pip install tmuxp
+    pip install \
+        tmuxp \
+        git+https://github.com/luarocks/hererocks
+
+# Install hererocks environment with Lua5.1 and LuaRocks
+RUN . ~/.venv/work/bin/activate && \
+    hererocks ~/.hererocks/5.1 -l5.1 -rlatest
 
 # Add symbolic link to Neovim and Tmux external config directories
 RUN mkdir -p ~/.config && \
@@ -58,7 +62,8 @@ ENV TMUXP_CONFIGDIR=~/.config/tmuxp/sessions
 RUN echo 'alias tmuxs="~/.config/tmuxp/tmuxp-sessionizer"' >> ~/.bashrc && \
     echo 'alias tmux="tmux -f ~/.config/tmux/tmux.conf"' >> ~/.bashrc && \
     echo 'export TMUXP_CONFIGDIR=~/.config/tmuxp/sessions' >> ~/.bashrc && \
-    echo '. ~/.venv/work/bin/activate' >> ~/.bashrc
+    echo '. ~/.venv/work/bin/activate' >> ~/.bashrc && \
+    echo '. ~/.hererocks/5.1/bin/activate' >> ~/.bashrc
 
 # Set the working directory
 WORKDIR /work
