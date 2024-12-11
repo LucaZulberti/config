@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Path to config repo
+CONF_DIR="$HOME/.config"
+
+# Path of working directory to mount in container
+WORK_DIR="$HOME/"
+
+# Build local workenv docker image
+pushd $CONF_DIR
+scripts/docker-build-work.sh
+popd
+
+# Run container and make ~/.local persistent
+$CONF_DIR/scripts/docker-run.sh \
+    -c $CONF_DIR \
+    -w $WORK_DIR \
+    -v workenv_local:/home/ubuntu/.local
