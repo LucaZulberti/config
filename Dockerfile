@@ -15,8 +15,12 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 # Add Neovim PPA (unstable for v0.10+)
 RUN add-apt-repository -y ppa:neovim-ppa/unstable
 
+# Add Fish shell PPA
+RUN add-apt-repository -y ppa:fish-shell/release-3
+
 # Install needed packages
 RUN apt-get update && apt-get install -y \
+        fish \
         fzf \
         gcc \
         git \
@@ -64,6 +68,9 @@ RUN echo 'alias tmuxs="~/.config/tmuxp/tmuxp-sessionizer"' >> ~/.bashrc && \
     echo 'export TMUXP_CONFIGDIR=~/.config/tmuxp/sessions' >> ~/.bashrc && \
     echo '. ~/.venv/work/bin/activate' >> ~/.bashrc && \
     echo '. ~/.hererocks/5.1/bin/activate' >> ~/.bashrc
+
+# Use fish shell as default
+ENTRYPOINT [ "fish"]
 
 # Set the working directory
 WORKDIR /work
