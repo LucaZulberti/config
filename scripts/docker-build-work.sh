@@ -3,7 +3,7 @@
 # Detect the operating system
 if [[ "$(uname)" == "Darwin" ]]; then
     # macOS detected
-    echo "Building on macOS - host UID and GID are not needed."
+    echo "Building on macOS"
     docker build \
         -t workenv \
         -f Dockerfile.work \
@@ -14,6 +14,7 @@ else
     docker build \
         --build-arg HOST_UID=$(id -u) \
         --build-arg HOST_GID=$(id -g) \
+        --build-arg HOST_USER=$USER \
         -t workenv \
         -f Dockerfile.work \
         .

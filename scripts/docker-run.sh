@@ -95,5 +95,8 @@ elif docker inspect "${CONTAINER_NAME}" >/dev/null 2>&1; then
     docker attach "${CONTAINER_NAME}"
 else
     echo "Container '${CONTAINER_NAME}' does not exist. Creating and starting..."
-    docker run -it --name "${CONTAINER_NAME}" "${DOCKER_ARGS[@]}"
+    docker run -it \
+        --name "${CONTAINER_NAME}" \
+        --hostname "workenv" \
+        "${DOCKER_ARGS[@]}"
 fi
