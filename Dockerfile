@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
         neovim \
         python3 \
         python3-venv \
+        ripgrep \
         tmux \
         unzip \
         wget \
