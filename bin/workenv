@@ -13,6 +13,7 @@ WORK_DIR="${WORK_DIR:=$WORK_DIR_DEFAULT}"
 
 # Build local workenv docker image
 pushd $CONF_DIR > /dev/null
+echo "Building local workenv docker image..."
 scripts/docker-build-work.sh &> .docker-build-work.log
 popd > /dev/null
 
