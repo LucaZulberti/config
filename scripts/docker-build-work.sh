@@ -14,7 +14,8 @@ else
     docker build \
         --build-arg HOST_UID=$(id -u) \
         --build-arg HOST_GID=$(id -g) \
-        --build-arg HOST_USER=$USER \
+        --build-arg HOST_USER=$(id -u -n) \
+        --build-arg HOST_GROUP=$(id -g -n) \
         -t workenv \
         -f Dockerfile.work \
         .
