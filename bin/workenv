@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 
+CONF_DIR=$1
+WORK_DIR=$2
+
 # Path to config repo
-CONF_DIR="$HOME/.config"
+CONF_DIR_DEFAULT="$HOME/work/git-repos/config"
+CONF_DIR="${CONF_DIR:=$CONF_DIR_DEFAULT}"
 
 # Path of working directory to mount in container
-WORK_DIR="$HOME/"
+WORK_DIR_DEFAULT="$HOME/"
+WORK_DIR="${WORK_DIR:=$WORK_DIR_DEFAULT}"
 
 # Build local workenv docker image
-pushd $CONF_DIR
+pushd $CONF_DIR > /dev/null
 scripts/docker-build-work.sh &> .docker-build-work.log
-popd
+popd > /dev/null
 
 # Run container and make ~/.local persistent
 $CONF_DIR/scripts/docker-run.sh \

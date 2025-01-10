@@ -87,14 +87,17 @@ DOCKER_ARGS+=("${ARGS[@]}")
 # Check if the container is already running
 if docker inspect -f '{{.State.Running}}' "${CONTAINER_NAME}" 2>/dev/null | grep -q "true"; then
     echo "Container '${CONTAINER_NAME}' is running. Attaching..."
+    echo ""
     docker attach "${CONTAINER_NAME}"
 elif docker inspect "${CONTAINER_NAME}" >/dev/null 2>&1; then
     echo "Container '${CONTAINER_NAME}'is not running. Starting..."
     docker start "${CONTAINER_NAME}" > /dev/null
     echo "Container '${CONTAINER_NAME}' started. Attaching..."
+    echo ""
     docker attach "${CONTAINER_NAME}"
 else
     echo "Container '${CONTAINER_NAME}' does not exist. Creating and starting..."
+    echo ""
     docker run -it \
         --name "${CONTAINER_NAME}" \
         --hostname "workenv" \
