@@ -36,6 +36,9 @@ RUN apt-get update && apt-get install -y \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
+# Use fish shell as default
+RUN chsh -s /usr/bin/fish ubuntu
+
 # Switch to non-root user
 USER ubuntu
 
@@ -53,6 +56,7 @@ RUN . ~/.venv/work/bin/activate && \
 
 # Add symbolic link to Neovim and Tmux external config directories
 RUN mkdir -p ~/.config && \
+    ln -s /config/fish ~/.config/fish && \
     ln -s /config/nvim ~/.config/nvim && \
     ln -s /config/tmux ~/.config/tmux && \
     ln -s /config/tmux-powerline ~/.config/tmux-powerline && \
@@ -60,15 +64,6 @@ RUN mkdir -p ~/.config && \
 
 # Create local directory to mount volume for persistance with correct uid:gid
 RUN mkdir -p ~/.local
-
-# Customize environment
-ENV TERM=xterm-256color
-ENV TMUXP_CONFIGDIR=~/.config/tmuxp/sessions
-RUN echo 'alias tmuxs="~/.config/tmuxp/tmuxp-sessionizer"' >> ~/.bashrc && \
-    echo 'alias tmux="tmux -f ~/.config/tmux/tmux.conf"' >> ~/.bashrc && \
-    echo 'export TMUXP_CONFIGDIR=~/.config/tmuxp/sessions' >> ~/.bashrc && \
-    echo '. ~/.venv/work/bin/activate' >> ~/.bashrc && \
-    echo '. ~/.hererocks/5.1/bin/activate' >> ~/.bashrc
 
 # Use fish shell as default
 ENTRYPOINT [ "fish"]
