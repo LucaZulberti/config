@@ -15,4 +15,4 @@ popd
 $CONF_DIR/scripts/docker-run.sh \
     -c $CONF_DIR \
     -w $WORK_DIR \
-    -v workenv_local:/home/ubuntu/.local
+    -v workenv_local:/home/$USER/.local
