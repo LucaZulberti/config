@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y \
         python3 \
         python3-venv \
         ripgrep \
+        ruby-dev \
         tmux \
         unzip \
         wget \
@@ -38,6 +39,9 @@ RUN apt-get update && apt-get install -y \
 
 # Use fish shell as default
 RUN chsh -s /usr/bin/fish ubuntu
+
+# Install colorls
+RUN gem install colorls
 
 # Switch to non-root user
 USER ubuntu
