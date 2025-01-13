@@ -67,7 +67,16 @@ done
 # Print the parsed values
 echo "Config directory: $CONFIG_DIR"
 echo "Work directory: $WORK_DIR"
+echo "Environment variables:"
+for variable in "${ENV_VARIABLES[@]}"; do
+    echo "- $variable"
+done
+echo "Volumes:"
+for mount in "${VOLUME_MOUNTS[@]}"; do
+    echo "- $mount"
+done
 echo "Positional arguments: ${ARGS[@]}"
+echo ""
 
 # Docker
 # ------
