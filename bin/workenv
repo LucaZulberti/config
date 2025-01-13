@@ -13,12 +13,19 @@ WORK_DIR="${WORK_DIR:=$WORK_DIR_DEFAULT}"
 
 # Build local workenv docker image
 pushd $CONF_DIR > /dev/null
-echo "Building local workenv docker image..."
+echo -n "Building local workenv docker image... "
 scripts/docker-build-work.sh &> .docker-build-work.log
+echo "Ok.\n"
 popd > /dev/null
 
-# Run container and make ~/.local persistent
+# Run container and:
+#  - mount ~/.local in named volumen to make it persistent
+#  - mount SSH_AUTH_SOCK to connect the SSH Agent
+#  - mount the global .gitconfig to share Git configuration
 $CONF_DIR/scripts/docker-run.sh \
     -c $CONF_DIR \
     -w $WORK_DIR \
-    -v workenv_local:/home/$USER/.local
+    -v workenv_local:/home/$USER/.local \
+    -v $SSH_AUTH_SOCK:/ssh-agent \
+    -e SSH_AUTH_SOCK=/ssh-agent \
+    -v $HOME/.gitconfig:/home/$USER/.gitconfig
