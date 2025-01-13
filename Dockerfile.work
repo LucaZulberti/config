@@ -27,6 +27,9 @@ RUN useradd \
         -d /home/$HOST_USER \
         $HOST_USER
 
+# Use fish shell as default
+RUN chsh -s /usr/bin/fish $HOST_USER
+
 # Change ownership of home directory
 RUN chown -R $HOST_USER:$HOST_GROUP /home/$HOST_USER
 
