@@ -29,6 +29,14 @@ while [[ $# -gt 0 ]]; do
             WORK_DIR="$2"
             shift 2
             ;;
+        -e|--environment)
+            if [[ -z "$2" ]]; then
+                echo "Error: --environment requires a value (e.g., VAR=VALUE)."
+                exit 1
+            fi
+            ENV_VARIABLES+=("$2")
+            shift 2
+            ;;
         -v|--volume)
             if [[ -z "$2" ]]; then
                 echo "Error: --volume requires a value (e.g., /source:/destination)."
@@ -72,6 +80,11 @@ CONTAINER_NAME="${IMAGE_NAME}-${CONFIG_NAME}-${WORK_NAME}"
 # Prepare the docker command
 DOCKER_ARGS=(-v "$CONFIG_DIR:/config")
 DOCKER_ARGS+=(-v "$WORK_DIR:/work")
+
+# Add environemnt variables dynamically
+for variable in "${ENV_VARIABLES[@]}"; do
+    DOCKER_ARGS+=(-e "$variable")
+done
 
 # Add volume mounts dynamically
 for mount in "${VOLUME_MOUNTS[@]}"; do
