@@ -28,4 +28,5 @@ $CONF_DIR/scripts/docker-run.sh \
     -v workenv_local:/home/$USER/.local \
     -v $SSH_AUTH_SOCK:/ssh-agent \
     -e SSH_AUTH_SOCK=/ssh-agent \
+    -v $HOME/.ssh:/home/$USER/.ssh \
     -v $HOME/.gitconfig:/home/$USER/.gitconfig
