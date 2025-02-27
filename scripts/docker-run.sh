@@ -128,6 +128,7 @@ else
     docker run -it \
         --name "${CONTAINER_NAME}" \
         --hostname "workenv" \
+        --network=host \
         "${DOCKER_ARGS[@]}"
 fi
 
