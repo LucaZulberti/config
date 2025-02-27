@@ -35,3 +35,6 @@ RUN chown -R $HOST_USER:$HOST_GROUP /home/$HOST_USER
 
 # Switch to non-root user again
 USER $HOST_USER
+
+# Fix broken paths
+RUN find $HOME -type f -exec sed -i "s|/home/ubuntu/|/home/$HOST_USER/|g" {} +
