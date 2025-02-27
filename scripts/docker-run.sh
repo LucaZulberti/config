@@ -8,10 +8,11 @@ ARGS=()
 
 # Print usage instructions
 usage() {
-    echo "Usage: $0 [-c CONFIG_DIR] [-w WORK_DIR] [--] <...args>"
+    echo "Usage: $0 [-c CONFIG_DIR] [-w WORK_DIR] [-v ldir:rdir] [-p lport:rport] [--] <...args>"
     echo "   -c, --config CONFIG_DIR    Specify the config directory. Default: $CONFIG_DIR"
     echo "   -w, --work WORK_DIR        Specify the work directory. Default: $WORK_DIR"
-    echo "   -v, --volume SRC:DST       Add additional volume mounts (can be used multiple times)."
+    echo "   -v, --volume ldir:rdir     Add additional volume mounts (can be used multiple times)."
+    echo "   -p, --port lport:rport     Add port binding (can be used multiple times)."
     echo "   <...args> are passed directly to the invoked command."
     echo "   Use -- to separate options from <...args> if needed."
     exit 1
@@ -45,9 +46,18 @@ while [[ $# -gt 0 ]]; do
             VOLUME_MOUNTS+=("$2")
             shift 2
             ;;
+        -p|--port)
+            if [[ -z "$2" ]]; then
+                echo "Error: --port requires a value (e.g., 8080:80)."
+                exit 1
+            fi
+            PORT_BINDS+=("$2")
+            shift 2
+            ;;
         --)
             shift
             ARGS+=("$@")
+            while [ "$#" -gt 0 ]; do shift; done
             ;;
         -h|--help)
             usage
@@ -74,6 +84,10 @@ echo "Volumes:"
 for mount in "${VOLUME_MOUNTS[@]}"; do
     echo "- $mount"
 done
+echo "Ports:"
+for port in "${PORT_BINDS[@]}"; do
+    echo "- $port"
+done
 echo "Positional arguments: ${ARGS[@]}"
 echo ""
 
@@ -97,6 +111,11 @@ done
 # Add volume mounts dynamically
 for mount in "${VOLUME_MOUNTS[@]}"; do
     DOCKER_ARGS+=(-v "$mount")
+done
+
+# Add port bindings dynamically
+for port in "${PORT_BINDS[@]}"; do
+    DOCKER_ARGS+=(-p "$port")
 done
 
 # Add the image name
