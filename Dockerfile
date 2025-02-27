@@ -32,8 +32,10 @@ RUN apt-get update && apt-get install -y \
         python3-venv \
         ripgrep \
         ruby-dev \
+        subversion \
         tmux \
         unzip \
+        yarn \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
