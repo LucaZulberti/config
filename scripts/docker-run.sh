@@ -56,7 +56,6 @@ while [[ $# -gt 0 ]]; do
             echo "Unknown option: $1"
             usage
             ;;
-            
         *)
             ARGS+=("$1")
             shift
@@ -119,9 +118,17 @@ elif docker inspect "${CONTAINER_NAME}" >/dev/null 2>&1; then
     docker attach "${CONTAINER_NAME}"
 else
     echo "Container '${CONTAINER_NAME}' does not exist. Creating and starting..."
+
+    # Update workenv if needed
+    pushd $(dirname "$0")/.. &> /dev/null
+    scripts/docker-build-work.sh &> .docker-build-work.log
+    popd &> /dev/null
+
     echo ""
     docker run -it \
         --name "${CONTAINER_NAME}" \
         --hostname "workenv" \
         "${DOCKER_ARGS[@]}"
 fi
+
+# ---
