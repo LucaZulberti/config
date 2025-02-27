@@ -11,15 +11,22 @@ CONF_DIR="${CONF_DIR:=$CONF_DIR_DEFAULT}"
 WORK_DIR_DEFAULT="$HOME/"
 WORK_DIR="${WORK_DIR:=$WORK_DIR_DEFAULT}"
 
-# Build local workenv docker image
-pushd $CONF_DIR > /dev/null
-echo -n "Building local workenv docker image... "
-scripts/docker-build-work.sh &> .docker-build-work.log
-echo "Ok.\n"
-popd > /dev/null
+# Check for directories or file if not exists to prevent root creation
+if [ ! -d "$WORK_DIR" ]; then
+    echo "Work directory ($WORK) does not exist! Exiting..."
+    exit 1
+fi
+if [ ! -d "$HOME/.ssh" ]; then
+    echo "SSH directory ($HOME/.ssh) does not exist! Exiting..."
+    exit 1
+fi
+if [ ! -f "$HOME/.gitconfig" ]; then
+    echo "Git config file ($HOME/.gitconfig) does not exist! Creating..."
+    touch $HOME/.gitconfig
+fi
 
 # Run container and:
-#  - mount ~/.local in named volumen to make it persistent
+#  - mount ~/.local in named volume to make it persistent
 #  - mount SSH_AUTH_SOCK to connect the SSH Agent
 #  - mount the global .gitconfig to share Git configuration
 $CONF_DIR/scripts/docker-run.sh \
