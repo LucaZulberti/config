@@ -3,6 +3,8 @@
 CONF_DIR=$1
 WORK_DIR=$2
 
+shift 2
+
 # Path to config repo
 CONF_DIR_DEFAULT="$HOME/work/git-repos/config"
 CONF_DIR="${CONF_DIR:=$CONF_DIR_DEFAULT}"
@@ -20,6 +22,10 @@ if [ ! -d "$HOME/.ssh" ]; then
     echo "SSH directory ($HOME/.ssh) does not exist! Exiting..."
     exit 1
 fi
+if [ ! -d "$HOME/.subversion" ]; then
+    echo "Subversion directory ($HOME/.subversion) does not exist! Creating..."
+    mkdir $HOME/.subversion
+fi
 if [ ! -f "$HOME/.gitconfig" ]; then
     echo "Git config file ($HOME/.gitconfig) does not exist! Creating..."
     touch $HOME/.gitconfig
@@ -36,4 +42,6 @@ $CONF_DIR/scripts/docker-run.sh \
     -v $SSH_AUTH_SOCK:/ssh-agent \
     -e SSH_AUTH_SOCK=/ssh-agent \
     -v $HOME/.ssh:/home/$USER/.ssh \
-    -v $HOME/.gitconfig:/home/$USER/.gitconfig
+    -v $HOME/.subversion:/home/$USER/.subversion \
+    -v $HOME/.gitconfig:/home/$USER/.gitconfig \
+    "$@"
