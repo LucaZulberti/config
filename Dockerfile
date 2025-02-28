@@ -46,32 +46,6 @@ RUN chsh -s /usr/bin/fish ubuntu
 # Install colorls
 RUN gem install colorls
 
-# Switch to non-root user
-USER ubuntu
-
-# Install python virtual environment and needed packages
-RUN mkdir -p ~/.venv/ && \
-    python3 -m venv ~/.venv/work && \
-    . ~/.venv/work/bin/activate && \
-    pip install \
-        tmuxp \
-        git+https://github.com/luarocks/hererocks
-
-# Install hererocks environment with Lua5.1 and LuaRocks
-RUN . ~/.venv/work/bin/activate && \
-    hererocks ~/.hererocks/5.1 -l5.1 -rlatest
-
-# Add symbolic link to Neovim and Tmux external config directories
-RUN mkdir -p ~/.config && \
-    ln -s /config/fish ~/.config/fish && \
-    ln -s /config/nvim ~/.config/nvim && \
-    ln -s /config/tmux ~/.config/tmux && \
-    ln -s /config/tmux-powerline ~/.config/tmux-powerline && \
-    ln -s /config/tmuxp ~/.config/tmuxp
-
-# Create local directory to mount volume for persistance with correct uid:gid
-RUN mkdir -p ~/.local
-
 # Use fish shell as default
 ENTRYPOINT [ "fish"]
 
