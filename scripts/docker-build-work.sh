@@ -10,7 +10,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
         .
 else
     # Non-macOS (e.g., Linux)
-    echo "Building on Linux - using host UID=${UID} and GID=${GID}."
+    echo "Building on Linux - using host UID=$(id -u) and GID=$(id -g)"
     docker build \
         --build-arg HOST_UID=$(id -u) \
         --build-arg HOST_GID=$(id -g) \
