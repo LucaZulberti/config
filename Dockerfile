@@ -20,12 +20,15 @@ RUN add-apt-repository -y ppa:fish-shell/release-3
 
 # Install needed packages
 RUN apt-get update && apt-get install -y \
+        build-essential \
+        curl \
         fish \
         fzf \
         gcc \
         git \
         git-lfs \
         libreadline-dev \
+        libssl-dev \
         make \
         neovim \
         python3 \

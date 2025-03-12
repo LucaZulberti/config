@@ -24,6 +24,15 @@ RUN chsh -s /usr/bin/fish $HOST_USER
 # Switch to non-root user
 USER $HOST_USER
 
+# Install nvm as the normal user
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+# Install Node.js v22
+RUN export NVM_DIR="$HOME/.nvm" && \
+    [ -s "$NVM_DIR/nvm.sh" ] && \
+    . "$NVM_DIR/nvm.sh" && \
+    nvm install 22
+
 # Add symbolic link to personal config directories
 RUN mkdir -p ~/.config && \
     ln -s /config/fish ~/.config/fish && \
@@ -43,12 +52,6 @@ RUN mkdir -p ~/.venv/ && \
 # Install hererocks environment with Lua5.1 and LuaRocks
 RUN . ~/.venv/work/bin/activate && \
     hererocks ~/.hererocks/5.1 -l5.1 -rlatest
-
-# Download and install Node Version Manager:
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-
-# Download and install Node.js v22:
-RUN nvm install 22
 
 # Create local directory to mount volume for persistance with correct uid:gid
 RUN mkdir -p ~/.local
