@@ -25,6 +25,7 @@ fi
 
 # Creating missing file or directories
 mkdir -p $HOME/.subversion
+mkdir -p $HOME/.config/github-copilot
 touch $HOME/.gitconfig
 
 # Run container and:
@@ -45,4 +46,5 @@ $CONF_DIR/scripts/docker-run.sh \
     -v $HOME/.ssh:/home/$USER/.ssh \
     -v $HOME/.subversion:/home/$USER/.subversion \
     -v $HOME/.gitconfig:/home/$USER/.gitconfig \
+    -v $HOME/.config/github-copilot:/home/$USER/.config/github-copilot \
     "$@"
