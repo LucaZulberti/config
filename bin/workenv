@@ -22,22 +22,23 @@ if [ ! -d "$HOME/.ssh" ]; then
     echo "SSH directory ($HOME/.ssh) does not exist! Exiting..."
     exit 1
 fi
-if [ ! -d "$HOME/.subversion" ]; then
-    echo "Subversion directory ($HOME/.subversion) does not exist! Creating..."
-    mkdir $HOME/.subversion
-fi
-if [ ! -f "$HOME/.gitconfig" ]; then
-    echo "Git config file ($HOME/.gitconfig) does not exist! Creating..."
-    touch $HOME/.gitconfig
-fi
+
+# Creating missing file or directories
+mkdir -p $HOME/.subversion
+touch $HOME/.gitconfig
 
 # Run container and:
 #  - mount ~/.local in named volume to make it persistent
 #  - mount SSH_AUTH_SOCK to connect the SSH Agent
 #  - mount the global .gitconfig to share Git configuration
 $CONF_DIR/scripts/docker-run.sh \
-    -c $CONF_DIR \
     -w $WORK_DIR \
+    -c $CONF_DIR \
+    -v $CONF_DIR/fish:/home/$USER/.config/fish \
+    -v $CONF_DIR/nvim:/home/$USER/.config/nvim \
+    -v $CONF_DIR/tmux:/home/$USER/.config/tmux \
+    -v $CONF_DIR/tmux-powerline:/home/$USER/.config/tmux-powerline \
+    -v $CONF_DIR/tmuxp:/home/$USER/.config/tmuxp \
     -v workenv_local:/home/$USER/.local \
     -v $SSH_AUTH_SOCK:/ssh-agent \
     -e SSH_AUTH_SOCK=/ssh-agent \
