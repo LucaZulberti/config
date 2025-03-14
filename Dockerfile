@@ -22,6 +22,7 @@ RUN add-apt-repository -y ppa:fish-shell/release-3
 RUN apt-get update && apt-get install -y \
         build-essential \
         curl \
+        doxygen \
         fish \
         fzf \
         gcc \
