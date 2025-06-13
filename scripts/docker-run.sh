@@ -97,7 +97,7 @@ echo ""
 CONFIG_NAME=$(basename "$CONFIG_DIR")
 WORK_NAME=$(basename "$WORK_DIR")
 IMAGE_NAME="workenv"
-CONTAINER_NAME="${IMAGE_NAME}-${CONFIG_NAME}-${WORK_NAME}"
+CONTAINER_NAME="${IMAGE_NAME}-${USER}-${CONFIG_NAME}-${WORK_NAME}"
 
 # Prepare the docker command
 DOCKER_ARGS=(-v "$CONFIG_DIR:/config")
