@@ -3,7 +3,7 @@ CFG=$GR/config
 WC=workenv-$USER-config
 
 # TimeZone
-TZ="UTC"
+TZ=${TZ:-UTC}
 
 # we : easy to type with left hand (WorkEnv)
 alias we="TZ=$TZ workenv"
