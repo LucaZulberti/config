@@ -5,6 +5,7 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y \
         software-properties-common \
         locales && \
+    yes | unminimize && \
     rm -rf /var/lib/apt/lists/*
 
 # Generate en_US.UTF-8 locale
@@ -40,8 +41,8 @@ RUN apt-get update && apt-get install -y \
         subversion \
         tmux \
         unzip \
-        yarn \
         wget \
+        yarn \
     && rm -rf /var/lib/apt/lists/*
 
 # Use fish shell as default
