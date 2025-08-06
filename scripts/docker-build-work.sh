@@ -16,7 +16,7 @@ else
         --build-arg HOST_GID=$(id -g) \
         --build-arg HOST_USER=$(id -u -n) \
         --build-arg HOST_GROUP=$(id -g -n) \
-        -t workenv \
+        -t workenv:$USER \
         -f Dockerfile.work \
         .
 fi

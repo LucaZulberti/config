@@ -119,7 +119,7 @@ for port in "${PORT_BINDS[@]}"; do
 done
 
 # Add the image name
-DOCKER_ARGS+=($IMAGE_NAME)
+DOCKER_ARGS+=($IMAGE_NAME:$USER)
 
 # Add additional arguments
 DOCKER_ARGS+=("${ARGS[@]}")
