@@ -43,6 +43,7 @@ RUN apt-get update && apt-get install -y \
         unzip \
         wget \
         yarn \
+        zoxide \
     && rm -rf /var/lib/apt/lists/*
 
 # Use fish shell as default
