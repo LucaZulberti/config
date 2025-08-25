@@ -40,7 +40,7 @@ $CONF_DIR/scripts/docker-run.sh \
     -v $CONF_DIR/tmux:/home/$USER/.config/tmux \
     -v $CONF_DIR/tmux-powerline:/home/$USER/.config/tmux-powerline \
     -v $CONF_DIR/tmuxp:/home/$USER/.config/tmuxp \
-    -v workenv_local:/home/$USER/.local \
+    -v workenv_local_$USER:/home/$USER/.local \
     -v $SSH_AUTH_SOCK:/ssh-agent \
     -e SSH_AUTH_SOCK=/ssh-agent \
     -e TZ \
