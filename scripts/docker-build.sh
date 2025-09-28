@@ -31,5 +31,4 @@ echo "${docker_build_args[@]}"
 
 # Build the Docker image, passing additional arguments
 echo "Building the Docker image for platforms: ${platforms}"
-docker buildx build "${docker_build_args[@]}" "$@" .
-echo "Docker image built successfully!"
+docker buildx build "${docker_build_args[@]}" "$@" . && echo "Docker image built successfully!"
