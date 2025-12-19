@@ -57,6 +57,9 @@ RUN bash -c 'source "${HOME}/.cargo/env" && cargo install bob-nvim'
 # Install Neovim nightly
 RUN ${HOME}/.cargo/bin/bob install nightly
 
+# Install gitmux with Go
+RUN go install github.com/arl/gitmux@latest
+
 # Create local directory to mount volume for persistance with correct uid:gid
 RUN mkdir -p ~/.local
 

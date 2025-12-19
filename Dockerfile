@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
         gcc \
         git \
         git-lfs \
+        golang \
         libreadline-dev \
         libssl-dev \
         make \
