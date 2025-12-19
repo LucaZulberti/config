@@ -65,3 +65,6 @@ RUN mkdir -p ~/.local
 
 # Create config directory to mount tools configurations
 RUN mkdir -p ~/.config
+
+# Link gitmux configuration
+RUN ln -s ~/.config/tmux/conf/gitmux.conf ~/.gitmux.conf
