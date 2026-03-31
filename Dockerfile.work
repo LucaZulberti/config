@@ -51,11 +51,13 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 # Add Cargo bin to PATH
 ENV PATH="${HOME}/.cargo/bin:${PATH}"
 
-# Install Bob for Neovim
-RUN bash -c 'source "${HOME}/.cargo/env" && cargo install bob-nvim'
+# Install Cargo packages:
+#  - bob-nvim: Neovim version manager
+#  - treesitter: Used by Neovim Treesitter plugin
+RUN bash -c 'source "${HOME}/.cargo/env" && cargo install bob-nvim tree-sitter-cli'
 
-# Install Neovim nightly
-RUN ${HOME}/.cargo/bin/bob install nightly
+# Install Neovim stable (0.12)
+RUN ${HOME}/.cargo/bin/bob install stable
 
 # Install gitmux with Go
 RUN go install github.com/arl/gitmux@latest
