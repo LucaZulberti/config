@@ -2,11 +2,13 @@
 FROM ubuntu:latest
 
 # Install basic packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	less \
+	curl \
+	ca-certificates \
+	locales \
         software-properties-common \
-        locales && \
-    yes | unminimize && \
-    rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/*
 
 # Generate en_US.UTF-8 locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -17,30 +19,34 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 RUN add-apt-repository -y ppa:fish-shell/release-4
 
 # Install needed packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
-        curl \
-        doxygen \
-        fish \
-        fzf \
-        gcc \
-        git \
-        git-lfs \
-        golang \
-        libreadline-dev \
-        libssl-dev \
-        make \
+	clang \
+	libclang-dev \
+	pkg-config \
         python3 \
         python3-venv \
-        ripgrep \
+        fish \
         rsync \
-        ruby-dev \
-        subversion \
         tmux \
         unzip \
         wget \
-        yarn \
+        fzf \
+        ripgrep \
         zoxide \
+	man-db \
+	manpages \
+	vim \
+        subversion \
+        git \
+        git-lfs \
+        make \
+        golang \
+        doxygen \
+        libreadline-dev \
+        libssl-dev \
+        ruby-dev \
+        yarn \
     && rm -rf /var/lib/apt/lists/*
 
 # Use fish shell as default
