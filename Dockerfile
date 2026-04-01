@@ -2,13 +2,14 @@
 FROM ubuntu:latest
 
 # Install basic packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-	less \
-	curl \
-	ca-certificates \
-	locales \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        locales \
         software-properties-common \
-	&& rm -rf /var/lib/apt/lists/*
+        unminimize \
+        && rm -rf /var/lib/apt/lists/*
 
 # Generate en_US.UTF-8 locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -21,12 +22,12 @@ RUN add-apt-repository -y ppa:fish-shell/release-4
 # Install needed packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
-	clang \
-	libclang-dev \
-	pkg-config \
-        python3 \
-        python3-venv \
+        clang \
+        libclang-dev \
+        pkg-config \
+        openssh-client \
         fish \
+        less \
         rsync \
         tmux \
         unzip \
@@ -34,13 +35,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         fzf \
         ripgrep \
         zoxide \
-	man-db \
-	manpages \
-	vim \
+        man-db \
+        manpages \
+        vim \
         subversion \
         git \
         git-lfs \
         make \
+        python3 \
+        python3-venv \
         golang \
         doxygen \
         libreadline-dev \
