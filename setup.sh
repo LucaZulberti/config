@@ -37,12 +37,12 @@ replace_symlink() {
 mkdir -p -- "$CONF_DIR" "$BIN_DIR"
 
 # Create symlinks for all tools
-replace_symlink $DIR/fish
-replace_symlink $DIR/tmux
-replace_symlink $DIR/tmux-powerline
-replace_symlink $DIR/tmuxp
-replace_symlink $DIR/nvim
-replace_symlink $DIR/bin/workenv
+replace_symlink "$DIR/fish"           "$CONF_DIR/fish"
+replace_symlink "$DIR/tmux"           "$CONF_DIR/tmux"
+replace_symlink "$DIR/tmux-powerline" "$CONF_DIR/tmux-powerline"
+replace_symlink "$DIR/tmuxp"          "$CONF_DIR/tmuxp"
+replace_symlink "$DIR/nvim"           "$CONF_DIR/nvim"
+replace_symlink "$DIR/bin/workenv"    "$BIN_DIR/workenv"
 
 echo "WorkEnv setup completed successfully!"
 echo ""
