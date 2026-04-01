@@ -14,7 +14,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     update-locale LANG=en_US.UTF-8
 
 # Add Fish shell PPA
-RUN add-apt-repository -y ppa:fish-shell/release-3
+RUN add-apt-repository -y ppa:fish-shell/release-4
 
 # Install needed packages
 RUN apt-get update && apt-get install -y \
