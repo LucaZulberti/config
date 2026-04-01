@@ -25,13 +25,13 @@ RUN chsh -s /usr/bin/fish $HOST_USER
 USER $HOST_USER
 
 # Install nvm as the normal user
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 
-# Install Node.js v22 LTS
+# Install Node.js v24 LTS
 RUN export NVM_DIR="$HOME/.nvm" && \
     [ -s "$NVM_DIR/nvm.sh" ] && \
     . "$NVM_DIR/nvm.sh" && \
-    nvm install lts/jod
+    nvm install lts/krypton
 
 # Install python virtual environment and needed packages
 RUN mkdir -p ~/.venv/ && \
@@ -46,7 +46,7 @@ RUN . ~/.venv/work/bin/activate && \
     hererocks ~/.hererocks/5.1 -l5.1 -rlatest
 
 # Install Rust (and Cargo) via rustup
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Add Cargo bin to PATH
 ENV PATH="${HOME}/.cargo/bin:${PATH}"
