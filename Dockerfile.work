@@ -55,7 +55,7 @@ ENV PATH="${HOME}/.cargo/bin:${PATH}"
 #  - bat: A cat(1) clone with wings.
 #  - bob-nvim: Neovim version manager
 #  - eza: Modern alternative to ls
-#  - fd-find: Find directories
+#  - fd-find: Find
 #  - treesitter: Used by Neovim Treesitter plugin
 #  - television: Fuzzy finder
 RUN bash -c 'source "${HOME}/.cargo/env" && cargo install bat bob-nvim eza tree-sitter-cli television'
