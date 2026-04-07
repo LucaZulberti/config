@@ -35,6 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         fzf \
         ripgrep \
         zoxide \
+        direnv \
         man-db \
         manpages \
         vim \
