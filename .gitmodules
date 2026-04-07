@@ -16,3 +16,6 @@
 [submodule "wezterm"]
 	path = wezterm
 	url = git@github.com:LucaZulberti/config.wezterm.git
+[submodule "television"]
+	path = television
+	url = git@github.com:LucaZulberti/config.television.git
