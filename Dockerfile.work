@@ -52,15 +52,22 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="${HOME}/.cargo/bin:${PATH}"
 
 # Install Cargo packages:
+#  - bat: A cat(1) clone with wings.
 #  - bob-nvim: Neovim version manager
+#  - eza: Modern alternative to ls
+#  - fd-find: Find directories
 #  - treesitter: Used by Neovim Treesitter plugin
-RUN bash -c 'source "${HOME}/.cargo/env" && cargo install bob-nvim tree-sitter-cli'
+#  - television: Fuzzy finder
+RUN bash -c 'source "${HOME}/.cargo/env" && cargo install bat bob-nvim eza tree-sitter-cli television'
 
 # Install Neovim stable (0.12)
 RUN ${HOME}/.cargo/bin/bob install stable
 
 # Install gitmux with Go
 RUN go install github.com/arl/gitmux@latest
+
+# Install sesh with Go
+RUN go install github.com/joshmedeski/sesh/v2@latest
 
 # Create local directory to mount volume for persistance with correct uid:gid
 RUN mkdir -p ~/.local
