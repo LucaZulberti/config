@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Docker builder name for multi-arch builds
-builder="multi-arch-builder"
+builder="multi-arch"
 
 # If the builder does not exist, create a new one
 if [ -z "$(docker buildx ls | grep "$builder" 2> /dev/null)" ]; then
@@ -16,7 +16,9 @@ platforms="linux/amd64,linux/arm64"
 name=lucazulberti/workenv
 
 # Build arguments
-docker_build_args=(--platform $platforms)
+docker_build_args=(--builder $builder)
+docker_build_args+=(--platform $platforms)
+docker_build_args+=(--build-arg version=24.04)
 
 # If branch is main, tag the image as latest
 branch=$(git rev-parse --abbrev-ref HEAD)
@@ -26,8 +28,6 @@ else
     # Otherwise, tag the image with the branch name
     docker_build_args+=(-t ${name}:${branch})
 fi
-
-echo "${docker_build_args[@]}"
 
 # Build the Docker image, passing additional arguments
 echo "Building the Docker image for platforms: ${platforms}"
