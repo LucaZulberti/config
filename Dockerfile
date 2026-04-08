@@ -49,7 +49,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         doxygen \
         libreadline-dev \
         libssl-dev \
-        ruby-dev \
         yarn \
     && rm -rf /var/lib/apt/lists/*
 
@@ -59,11 +58,8 @@ RUN chsh -s /usr/bin/fish ubuntu
 # Save it in SHELL environmnet variable
 ENV SHELL=/usr/bin/fish
 
-# Install colorls
-RUN gem install colorls
-
 # Use fish shell as default
-ENTRYPOINT [ "fish"]
+ENTRYPOINT [ "/usr/bin/fish" ]
 
 # Set the working directory
 WORKDIR /work
