@@ -18,6 +18,9 @@ RUN if [ "$TARGET_OS" = "linux" ]; then \
         sudo useradd -m -d /home/$HOST_USER -s /usr/bin/fish -g $HOST_GROUP $HOST_USER || true ; \
     fi
 
+# Update permissions on linuxbrew user home
+RUN sudo chown -R $HOST_USER:$HOST_GROUP /home/linuxbrew
+
 # Switch to non-root user
 USER $HOST_USER
 
@@ -35,6 +38,9 @@ RUN mkdir -p ~/.local
 
 # Create config directory to mount tools configurations
 RUN mkdir -p ~/.config
+
+# Update XDG_CONFIG_HOME
+ENV XDG_CONFIG_HOME="/home/$HOST_USER/.config"
 
 # Link gitmux configuration
 RUN ln -s ~/.config/tmux/conf/gitmux.conf ~/.gitmux.conf
