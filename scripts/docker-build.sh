@@ -18,7 +18,6 @@ name=lucazulberti/workenv
 # Build arguments
 docker_build_args=(--builder $builder)
 docker_build_args+=(--platform $platforms)
-docker_build_args+=(--build-arg version=24.04)
 
 # If branch is main, tag the image as latest
 branch=$(git rev-parse --abbrev-ref HEAD)

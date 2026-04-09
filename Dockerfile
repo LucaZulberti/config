@@ -1,5 +1,5 @@
 # Keep updated with latest Brew image
-FROM homebrew/brew:latest
+FROM lucazulberti/brew:latest
 
 # Install needed packages
 RUN sudo apt-get update && \
