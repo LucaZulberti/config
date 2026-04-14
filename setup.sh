@@ -45,6 +45,17 @@ replace_symlink "$DIR/tmuxp"                    "$CONF_DIR/tmuxp"
 replace_symlink "$DIR/nvim"                     "$CONF_DIR/nvim"
 replace_symlink "$DIR/bin/workenv"              "$BIN_DIR/workenv"
 
+if [[ $(uname) = Linux ]]; then
+    # Add systemd user services
+    SYSTEMD_USER="$CONF_DIR/systemd/user"
+    mkdir -p $SYSTEMD_USER
+    replace_symlink "$DIR/fish/systemd/pomodoro.service" "$SYSTEMD_USER/pomodoro.service"
+elif [[ $(uname) = Darwin ]]; then
+    LAUNCH_USER="$HOME/Library/LaunchAgents"
+    mkdir -p $LAUNCH_USER
+    replace_symlink "$DIR/fish/launchd/com.user.pomodoro.plist" "$LAUNCH_USER/com.$USER.pomodoro.plist"
+fi
+
 echo "WorkEnv setup completed successfully!"
 echo ""
 echo "Add this to you bash aliases (~/.bash_aliases) and customize with your shortcuts:"
