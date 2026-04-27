@@ -40,6 +40,7 @@ RUN brew install \
     fd \
     fnm \
     gitmux \
+    helix \
     nvim \
     sesh \
     television \

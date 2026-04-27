@@ -16,3 +16,6 @@
 [submodule "television"]
 	path = television
 	url = git@github.com:LucaZulberti/config.television.git
+[submodule "helix"]
+	path = helix
+	url = git@github.com:LucaZulberti/config.helix.git

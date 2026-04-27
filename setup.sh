@@ -43,6 +43,7 @@ replace_symlink "$DIR/tmux"                     "$CONF_DIR/tmux"
 replace_symlink "$DIR/tmux/conf/gitmux.conf"    "$HOME/.gitmux.conf"
 replace_symlink "$DIR/tmuxp"                    "$CONF_DIR/tmuxp"
 replace_symlink "$DIR/nvim"                     "$CONF_DIR/nvim"
+replace_symlink "$DIR/helix"                    "$CONF_DIR/helix"
 replace_symlink "$DIR/bin/workenv"              "$BIN_DIR/workenv"
 
 if [[ $(uname) = Linux ]]; then
