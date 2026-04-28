@@ -41,6 +41,7 @@ RUN brew install \
     fnm \
     gitmux \
     helix \
+    lazygit \
     nvim \
     sesh \
     television \
