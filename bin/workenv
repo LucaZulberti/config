@@ -36,6 +36,7 @@ $CONF_DIR/scripts/docker-run.sh \
     -w $WORK_DIR \
     -c $CONF_DIR \
     -v $CONF_DIR/fish:/home/$USER/.config/fish \
+    -v $CONF_DIR/helix:/home/$USER/.config/helix \
     -v $CONF_DIR/nvim:/home/$USER/.config/nvim \
     -v $CONF_DIR/tmux:/home/$USER/.config/tmux \
     -v $CONF_DIR/television:/home/$USER/.config/television \
