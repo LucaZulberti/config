@@ -9,25 +9,25 @@ RUN sudo apt-get update && \
     sudo apt-get install -y --no-install-recommends \
         build-essential \
         clang \
-        libclang-dev \
-        pkg-config \
-        openssh-client \
-        fish \
-        rsync \
-        tmux \
-        wget \
-        fzf \
-        ripgrep \
-        zoxide \
         direnv \
-        man-db \
-        manpages \
-        vim \
-        subversion \
-        git-lfs \
         doxygen \
+        fish \
+        fzf \
+        git-lfs \
+        gnat \
+        libclang-dev \
         libreadline-dev \
         libssl-dev \
+        man-db \
+        manpages \
+        openssh-client \
+        pkg-config \
+        ripgrep \
+        rsync \
+        subversion \
+        tmux \
+        vim \
+        wget \
         yarn && \
     sudo apt-get remove --purge -y software-properties-common && \
     sudo apt-get autoremove --purge -y  && \
@@ -43,10 +43,12 @@ RUN brew install \
     helix \
     lazygit \
     nvim \
+    rustup \
     sesh \
     television \
     tmuxp \
-    tree-sitter-cli
+    tree-sitter-cli \
+    zoxide
 
 # Fix linuxbrew user home permissions
 RUN sudo chmod o+rx /home/linuxbrew

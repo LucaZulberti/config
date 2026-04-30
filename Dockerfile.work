@@ -24,15 +24,6 @@ RUN sudo chown -R $HOST_USER:$HOST_GROUP /home/linuxbrew
 # Switch to non-root user
 USER $HOST_USER
 
-# Install Node.js v24 LTS
-RUN fnm install lts/krypton
-
-# Install Rust (and Cargo) via rustup
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-# Add Cargo bin to PATH
-ENV PATH="/home/$HOST_USER/.cargo/bin:${PATH}"
-
 # Create local directory to mount volume for persistance with correct uid:gid
 RUN mkdir -p ~/.local
 
@@ -42,8 +33,11 @@ RUN mkdir -p ~/.config
 # Update XDG_CONFIG_HOME
 ENV XDG_CONFIG_HOME="/home/$HOST_USER/.config"
 
-# Link gitmux configuration
-RUN ln -s ~/.config/tmux/conf/gitmux.conf ~/.gitmux.conf
+# Install Node.js v24 LTS
+RUN fnm install lts/krypton
+
+# Install Rust via rustup
+RUN rustup toolchain install stable && rustup default stable
 
 # Set the working directory
 WORKDIR /work
